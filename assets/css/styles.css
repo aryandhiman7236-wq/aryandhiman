@@ -1020,3 +1020,10 @@ footer {
     width: 100%;
   }
 }
+.resume-page {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 20px;
+  background: white;
+}
