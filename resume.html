@@ -75,9 +75,18 @@
         </div>
 
         <div class="resume-container">
-          <!-- TODO: Replace the src with the path to your actual resume PDF -->
-          <iframe src="assets/documents/AryanDhiman.Resume.pdf" class="resume-frame" title="Aryan Dhiman Resume" allowfullscreen></iframe>
-        </div>
+
+  <!-- Desktop PDF Viewer -->
+  <iframe
+    src="assets/documents/AryanDhiman.Resume.pdf"
+    class="resume-frame desktop-resume"
+    title="Aryan Dhiman Resume">
+  </iframe>
+
+  <!-- Mobile PDF Pages -->
+  <div class="mobile-resume" id="mobile-resume"></div>
+
+</div>
 
         <p class="updated-note">Last updated: August 2026</p>
       </div>
@@ -98,5 +107,48 @@
     </footer>
 
     <script src="assets/js/scripts.js"></script>
+    <script type="module">
+  import * as pdfjsLib from
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
+
+  const pdfUrl = "assets/documents/AryanDhiman.Resume.pdf";
+  const container = document.getElementById("mobile-resume");
+
+  async function renderResume() {
+    if (window.innerWidth > 768) return;
+
+    const pdf = await pdfjsLib.getDocument(pdfUrl).promise;
+
+    for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+      const page = await pdf.getPage(pageNumber);
+
+      const containerWidth = container.clientWidth - 20;
+      const viewport = page.getViewport({ scale: 1 });
+
+      const scale = containerWidth / viewport.width;
+      const scaledViewport = page.getViewport({ scale });
+
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+
+      canvas.width = scaledViewport.width;
+      canvas.height = scaledViewport.height;
+
+      canvas.className = "resume-page";
+
+      container.appendChild(canvas);
+
+      await page.render({
+        canvasContext: context,
+        viewport: scaledViewport
+      }).promise;
+    }
+  }
+
+  renderResume();
+</script>
   </body>
 </html>
