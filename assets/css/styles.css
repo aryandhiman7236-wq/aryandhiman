@@ -981,32 +981,42 @@ footer {
 .socials a:not([aria-label="Instagram"]) {
   display: none !important;
 }
-/* Resume PDF - Mobile 2 Page Fix */
-.resume-container {
-  height: 1000px;
-  aspect-ratio: auto;
+/* Mobile PDF Renderer */
+.mobile-resume {
+  display: none;
 }
 
-.resume-frame {
-  height: 100%;
+.resume-page {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 20px;
+  background: white;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
 
+/* Mobile */
 @media (max-width: 768px) {
+
+  .desktop-resume {
+    display: none;
+  }
+
+  .mobile-resume {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: white;
+    border-radius: 12px;
+  }
+
   .resume-container {
-    height: 1200px;
+    height: auto;
+    aspect-ratio: auto;
+    overflow: visible;
   }
 
-  .resume-frame {
-    height: 1200px;
-  }
-}
-
-@media (max-width: 480px) {
-  .resume-container {
-    height: 1250px;
-  }
-
-  .resume-frame {
-    height: 1250px;
+  .resume-page {
+    width: 100%;
   }
 }
