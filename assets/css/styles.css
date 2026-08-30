@@ -981,3 +981,32 @@ footer {
 .socials a:not([aria-label="Instagram"]) {
   display: none !important;
 }
+/* Resume PDF - Mobile 2 Page Fix */
+.resume-container {
+  height: 1000px;
+  aspect-ratio: auto;
+}
+
+.resume-frame {
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .resume-container {
+    height: 1200px;
+  }
+
+  .resume-frame {
+    height: 1200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .resume-container {
+    height: 1250px;
+  }
+
+  .resume-frame {
+    height: 1250px;
+  }
+}
